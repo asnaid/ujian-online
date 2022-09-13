@@ -30,7 +30,7 @@ class Exam extends Model
         return $this->belongsTo(Classroom::class);
     }
 
-    public function question()
+    public function questions()
     {
         return $this->hasMany(Question::class)->orderBy('id','DESC');
     }
