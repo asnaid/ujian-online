@@ -19,9 +19,9 @@
             <ul class="nav flex-column pt-3 pt-md-0">
 
                 <li class="nav-item">
+                    <span ><img style="display:block; margin-left:auto;margin-right:auto;" src="/assets/images/logo1.png" alt="Smanra" width=20%></span>
                     <span class="mt-2 d-flex justify-content-between">
-                        <span>
-                            <span class="sidebar-icon">
+                            <!--<span class="sidebar-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                     class="bi bi-mortarboard-fill icon icon-xs me-2" viewBox="0 0 16 16">
                                     <path
@@ -29,14 +29,12 @@
                                     <path
                                         d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
                                 </svg>
-                            </span>
-                            <span class="sidebar-text fw-bold">UJIAN SMANRA</span>
-                        </span>
-                        <span>
-                            <span class="badge badge-sm bg-secondary ms-1 text-gray-800">ONLINE</span>
-                        </span>
+                            </span>-->
+                        <span style="display:block; margin-left:auto;margin-right:auto;" class="sidebar-text fw-bold">UJIAN SMANRA</span>
                     </span>
+                    <span style="display:block; margin-left:auto;margin-right:auto;" class="badge bg-secondary text-gray-900">ONLINE</span>
                 </li>
+
 
                 <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
 

@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Siswa - Aplikasi Ujian Online</title>
+        <title>Siswa - Ujian Online SMANRA</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
