@@ -2,12 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 //prefix "admin"
 Route::prefix('admin')->group(function() {
 
@@ -40,20 +34,69 @@ Route::prefix('admin')->group(function() {
 
         //custom route for store question exam
         Route::post('/exams/{exam}/questions/store', [\App\Http\Controllers\Admin\ExamController::class, 'storeQuestion'])->name('admin.exams.storeQuestion');
-
+    
         //custom route for edit question exam
         Route::get('/exams/{exam}/questions/{question}/edit', [\App\Http\Controllers\Admin\ExamController::class, 'editQuestion'])->name('admin.exams.editQuestion');
 
         //custom route for update question exam
         Route::put('/exams/{exam}/questions/{question}/update', [\App\Http\Controllers\Admin\ExamController::class, 'updateQuestion'])->name('admin.exams.updateQuestion');
-
+    
         //custom route for destroy question exam
         Route::delete('/exams/{exam}/questions/{question}/destroy', [\App\Http\Controllers\Admin\ExamController::class, 'destroyQuestion'])->name('admin.exams.destroyQuestion');
-
+    
         //route student import
         Route::get('/exams/{exam}/questions/import', [\App\Http\Controllers\Admin\ExamController::class, 'import'])->name('admin.exam.questionImport');
 
         //route student import
         Route::post('/exams/{exam}/questions/import', [\App\Http\Controllers\Admin\ExamController::class, 'storeImport'])->name('admin.exam.questionStoreImport');
+    
+        //route resource exam_sessions    
+        Route::resource('/exam_sessions', \App\Http\Controllers\Admin\ExamSessionController::class, ['as' => 'admin']);
+    
+        //custom route for enrolle create
+        Route::get('/exam_sessions/{exam_session}/enrolle/create', [\App\Http\Controllers\Admin\ExamSessionController::class, 'createEnrolle'])->name('admin.exam_sessions.createEnrolle');
+
+        //custom route for enrolle store
+        Route::post('/exam_sessions/{exam_session}/enrolle/store', [\App\Http\Controllers\Admin\ExamSessionController::class, 'storeEnrolle'])->name('admin.exam_sessions.storeEnrolle');
+        
+        //custom route for enrolle destroy
+        Route::delete('/exam_sessions/{exam_session}/enrolle/{exam_group}/destroy', [\App\Http\Controllers\Admin\ExamSessionController::class, 'destroyEnrolle'])->name('admin.exam_sessions.destroyEnrolle');
+   
+        //route index reports
+        Route::get('/reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
+
+        //route index reports filter
+        Route::get('/reports/filter', [\App\Http\Controllers\Admin\ReportController::class, 'filter'])->name('admin.reports.filter');
+
+        //route index reports export
+        Route::get('/reports/export', [\App\Http\Controllers\Admin\ReportController::class, 'export'])->name('admin.reports.export');
     });
+});
+
+//route homepage
+Route::get('/', function () {
+
+    //cek session student
+    if(auth()->guard('student')->check()) {
+        return redirect()->route('student.dashboard');
+    }
+
+    //return view login
+    return \Inertia\Inertia::render('Student/Login/Index');
+});
+
+//login students
+Route::post('/students/login', \App\Http\Controllers\Student\LoginController::class)->name('student.login');
+
+//prefix "student"
+Route::prefix('student')->group(function() {
+
+    //middleware "student"
+    Route::group(['middleware' => 'student'], function () {
+        
+        //route dashboard
+        Route::get('/dashboard', App\Http\Controllers\Student\DashboardController::class)->name('student.dashboard');
+    
+    });
+
 });

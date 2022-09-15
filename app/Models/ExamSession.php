@@ -16,7 +16,7 @@ class ExamSession extends Model
         'end_time',
     ];
 
-    public function exam_group()
+    public function exam_groups()
     {
         return $this->hasMany(ExamGroup::class);
     }

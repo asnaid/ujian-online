@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Student;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
-use App\Imports\StudentsImport;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -21,7 +19,7 @@ class StudentController extends Controller
         //get students
         $students = Student::when(request()->q, function($students) {
             $students = $students->where('name', 'like', '%'. request()->q . '%');
-        })->with('classroom')->latest()->paginate(40);
+        })->with('classroom')->latest()->paginate(5);
 
         //append query string to pagination links
         $students->appends(['q' => request()->q]);
@@ -159,35 +157,6 @@ class StudentController extends Controller
 
         //delete student
         $student->delete();
-
-        //redirect
-        return redirect()->route('admin.students.index');
-    }
-
-    /**
-     * import
-     *
-     * @return void
-     */
-    public function import()
-    {
-        return inertia('Admin/Students/Import');
-    }
-    
-    /**
-     * storeImport
-     *
-     * @param  mixed $request
-     * @return void
-     */
-    public function storeImport(Request $request)
-    {
-        $this->validate($request, [
-            'file' => 'required|mimes:csv,xls,xlsx'
-        ]);
-
-        // import data
-        Excel::import(new StudentsImport(), $request->file('file'));
 
         //redirect
         return redirect()->route('admin.students.index');
